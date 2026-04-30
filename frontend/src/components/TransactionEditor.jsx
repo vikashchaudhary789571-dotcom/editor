@@ -8,6 +8,13 @@ import { statementService } from '../services/api';
 export function TransactionEditor({ fileUrl }) {
     const [currentViewUrl, setCurrentViewUrl] = useState(fileUrl);
 
+    // Sync currentViewUrl whenever fileUrl prop changes (after transformation)
+    useEffect(() => {
+        if (fileUrl) {
+            setCurrentViewUrl(fileUrl);
+        }
+    }, [fileUrl]);
+
     return (
         <div className="w-full h-[calc(100vh-80px)] flex flex-col overflow-hidden bg-slate-50">
             {/* Action Bar */}
