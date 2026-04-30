@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: '/api',
+    baseURL: 'https://pdf-editor-2.onrender.com/api',
     headers: {
         'Content-Type': 'application/json',
     },
@@ -59,6 +59,12 @@ export const statementService = {
     },
     getAll: async () => {
         const response = await api.get('/statements');
+        if (response.data && response.data.statements) {
+            response.data.statements = response.data.statements.map(stmt => ({
+                ...stmt,
+                fileUrl: stmt.fileUrl ? stmt.fileUrl.replace('http://127.0.0.1:5001', 'https://pdf-editor-2.onrender.com') : stmt.fileUrl
+            }));
+        }
         return response.data;
     },
     regenerate: async (transactions, originalFile) => {
