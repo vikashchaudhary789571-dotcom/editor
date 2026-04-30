@@ -226,7 +226,7 @@ exports.saveTransactions = (req, res) => {
 };
 
 exports.regeneratePdf = async (req, res) => {
-    const { transactions, originalFile } = req.body;
+    const { transactions, originalFile, password } = req.body;
 
     try {
         const urlParts = originalFile.split('/');
@@ -235,7 +235,9 @@ exports.regeneratePdf = async (req, res) => {
 
         if (!fs.existsSync(originalPath)) throw new Error('Original file missing.');
 
-        const pdfDoc = await PDFDocument.load(fs.readFileSync(originalPath));
+        // If password is provided, use it to decrypt; otherwise ignore encryption as fallback
+        const loadOptions = password ? { password: password } : { ignoreEncryption: true };
+        const pdfDoc = await PDFDocument.load(fs.readFileSync(originalPath), loadOptions);
         const firstPage = pdfDoc.getPages()[0];
 
         const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
@@ -378,8 +380,8 @@ exports.editDirect = async (req, res) => {
 
         if (!fs.existsSync(originalPath)) return res.status(404).json({ success: false, message: 'File not found' });
 
-        const loadOptions = { ignoreEncryption: true };
-        if (password) loadOptions.password = password;
+        // If password is provided, use it to decrypt; otherwise ignore encryption as fallback
+        const loadOptions = password ? { password: password } : { ignoreEncryption: true };
         
         const pdfDoc = await PDFDocument.load(fs.readFileSync(originalPath), loadOptions);
         const pages = pdfDoc.getPages();
