@@ -534,7 +534,7 @@ export function InPdfEditor(props) {
         if (!fileUrl) return;
         try {
             const fileName = fileUrl.split('/').pop() || 'statement.pdf';
-            const downloadUrl = `http://127.0.0.1:5001/api/statements/download-file?fileUrl=${encodeURIComponent(fileUrl)}`;
+            const downloadUrl = `https://pdf-editor-2.onrender.com/api/statements/download-file?fileUrl=${encodeURIComponent(fileUrl)}`;
             const response = await fetch(downloadUrl);
             if (!response.ok) throw new Error(`Server returned ${response.status}`);
             const blob = await response.blob();
@@ -591,7 +591,7 @@ export function InPdfEditor(props) {
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:5001/api/statements/edit-direct', {
+            const response = await fetch('https://pdf-editor-2.onrender.com/api/statements/edit-direct', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -996,7 +996,7 @@ export function InPdfEditor(props) {
             }
 
             console.log(`[handleTransformWithPrecision] Submitting ${changes.length} changes to backend...`);
-            const response = await fetch('http://127.0.0.1:5001/api/statements/edit-direct', {
+            const response = await fetch('https://pdf-editor-2.onrender.com/api/statements/edit-direct', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ fileUrl, changes, password: pdfPasswordRef.current }),

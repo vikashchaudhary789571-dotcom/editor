@@ -50,7 +50,7 @@ export function SectionPlaceholder({ title, description, icon }) {
     const handleDownload = async (item) => {
         setDownloading(item.id);
         try {
-            const downloadUrl = `http://127.0.0.1:5001/api/statements/download-file?fileUrl=${encodeURIComponent(item.fileUrl)}`;
+            const downloadUrl = `https://pdf-editor-2.onrender.com/api/statements/download-file?fileUrl=${encodeURIComponent(item.fileUrl)}`;
             const res = await fetch(downloadUrl);
             if (!res.ok) throw new Error(`Server returned ${res.status}`);
             const blob = await res.blob();

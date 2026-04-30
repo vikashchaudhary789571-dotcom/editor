@@ -206,7 +206,7 @@ exports.uploadStatement = async (req, res) => {
             file: {
                 filename: req.file.filename,
                 originalName: req.file.originalname,
-                fileUrl: `http://127.0.0.1:5001/uploads/${req.file.filename}`
+                fileUrl: `https://pdf-editor-2.onrender.com/uploads/${req.file.filename}`
             },
             transactions: transactions,
             openingBalance,
@@ -325,7 +325,7 @@ exports.regeneratePdf = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            fileUrl: `http://127.0.0.1:5001/downloads/${fileName}`
+            fileUrl: `https://pdf-editor-2.onrender.com/downloads/${fileName}`
         });
     } catch (err) {
         console.error('Regeneration Error:', err);
@@ -462,7 +462,7 @@ exports.editDirect = async (req, res) => {
         res.status(200).json({
             success: true,
             message: 'Text edits applied successfully.',
-            fileUrl: `http://127.0.0.1:5001/downloads/${fileName}`
+            fileUrl: `https://pdf-editor-2.onrender.com/downloads/${fileName}`
         });
     } catch (err) {
         console.error('[editDirect] Error:', err);
