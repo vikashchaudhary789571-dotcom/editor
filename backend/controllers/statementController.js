@@ -206,7 +206,7 @@ exports.uploadStatement = async (req, res) => {
             file: {
                 filename: req.file.filename,
                 originalName: req.file.originalname,
-                fileUrl: `http://localhost:5001/uploads/${req.file.filename}`
+                fileUrl: `https://editor-3btc.onrender.com/uploads/${req.file.filename}`
             },
             transactions: transactions,
             openingBalance,
@@ -328,7 +328,7 @@ exports.regeneratePdf = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            fileUrl: `http://localhost:5001/downloads/${fileName}`
+            fileUrl: `https://editor-3btc.onrender.com/downloads/${fileName}`
         });
     } catch (err) {
         console.error('Regeneration Error:', err);
@@ -531,7 +531,7 @@ exports.editDirect = async (req, res) => {
             throw new Error(`File write failed: ${writeErr.message}`);
         }
 
-        const responseUrl = `http://localhost:5001/downloads/${fileName}`;
+        const responseUrl = `https://editor-3btc.onrender.com/downloads/${fileName}`;
         console.log(`[editDirect] ✓ Transform complete! URL: ${responseUrl}`);
 
         res.status(200).json({

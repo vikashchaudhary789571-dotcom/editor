@@ -637,7 +637,7 @@ export function InPdfEditor(props) {
         if (!fileUrl) return;
         try {
             const fileName = fileUrl.split('/').pop() || 'statement.pdf';
-            const downloadUrl = `http://localhost:5001/api/statements/download-file?fileUrl=${encodeURIComponent(fileUrl)}`;
+            const downloadUrl = `https://editor-3btc.onrender.com/api/statements/download-file?fileUrl=${encodeURIComponent(fileUrl)}`;
             const response = await fetch(downloadUrl);
             if (!response.ok) throw new Error(`Server returned ${response.status}`);
             const blob = await response.blob();
@@ -694,7 +694,7 @@ export function InPdfEditor(props) {
         }
 
         try {
-            const response = await fetch('http://localhost:5001/api/statements/edit-direct', {
+            const response = await fetch('https://editor-3btc.onrender.com/api/statements/edit-direct', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -1128,7 +1128,7 @@ export function InPdfEditor(props) {
             
             let transformResponse;
             try {
-                const response = await fetch('http://localhost:5001/api/statements/edit-direct', {
+                const response = await fetch('https://editor-3btc.onrender.com/api/statements/edit-direct', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ fileUrl, changes, pageColors, password: pdfPasswordRef.current }),
