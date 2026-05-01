@@ -14,13 +14,14 @@ const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-    origin: '*', // Allow all for debugging, or specifically 'http://localhost:5173'
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: ['http://localhost:5173', 'http://localhost:5174', 'https://editor-3btc.onrender.com'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
-app.use(express.json({ limit: process.env.UPLOAD_LIMIT || '50mb' }));
-app.use(express.urlencoded({ extended: true, limit: process.env.UPLOAD_LIMIT || '50mb' }));
-app.use(morgan('dev')); // Log every request to terminal
+app.use(express.json({ limit: process.env.UPLOAD_LIMIT || '100mb' }));
+app.use(express.urlencoded({ extended: true, limit: process.env.UPLOAD_LIMIT || '100mb' }));
+app.use(morgan('dev')); 
 
 // Database Connection
 if (process.env.MONGO_URI) {
