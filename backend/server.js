@@ -35,11 +35,12 @@ if (process.env.MONGO_URI) {
 }
 
 // Ensure uploads and downloads directories exist
-const uploadDir = path.join(__dirname, 'uploads');
-const downloadDir = path.join(__dirname, 'downloads');
+const uploadDir = path.resolve(process.cwd(), 'uploads');
+const downloadDir = path.resolve(process.cwd(), 'downloads');
 [uploadDir, downloadDir].forEach(dir => {
     if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir);
+        fs.mkdirSync(dir, { recursive: true });
+        console.log(`Created directory: ${dir}`);
     }
 });
 
@@ -47,7 +48,7 @@ const downloadDir = path.join(__dirname, 'downloads');
 app.use('/api/auth', authRoutes);
 app.use('/api/statements', statementRoutes);
 
-// Serve files as static
+// Serve files as static - using absolute paths for production reliability
 app.use('/uploads', express.static(uploadDir));
 app.use('/downloads', express.static(downloadDir));
 
